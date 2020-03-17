@@ -1,0 +1,4 @@
+TRUNCATE
+  users,
+  ingredients
+  RESTART IDENTITY CASCADE;
