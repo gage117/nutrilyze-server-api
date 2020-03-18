@@ -5,7 +5,7 @@ const helpers = require('./test-helpers');
 
 describe('Auth Endpoints', () => {
   let db;
-  const { testUsers } = helpers.makeThingsFixtures();
+  const { testUsers } = helpers.makeIngredientsFixtures();
   const testUser = testUsers[0];
 
   before('make knex instance', () => {
@@ -39,6 +39,7 @@ describe('Auth Endpoints', () => {
       }
 
       it(`responds with 400 required error when '${field}' is missing`, () => {
+        console.log(db)
         delete loginAttemptBody[field]
 
         return supertest(app)
