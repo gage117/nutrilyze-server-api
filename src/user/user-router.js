@@ -25,7 +25,7 @@ userRouter
       .catch(next);
     
   })
-  .post(requireAuth, jsonBodyParser, (req, res, next) => {
+  .post( jsonBodyParser, (req, res, next) => {
     const newUser = {...req.body};
     userService.insertUser(req.app.get('db'), newUser)
       .then(user => res.status(201).json(user))

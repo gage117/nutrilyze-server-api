@@ -2,7 +2,7 @@ const knex = require('knex');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
-describe('User Endpoints', () => {
+describe.only('User Endpoints', () => {
   let db;
 
   const {
@@ -29,11 +29,18 @@ describe('User Endpoints', () => {
     );
 
     it('responds 200 and the user', () => {
-      const expectedUser = testUsers[0]
+      const expectedUser = testUsers[0];
+      delete expectedUser.password;
+      expectedUser.carbs = parseFloat(expectedUser.carbs).toFixed(2);
+      expectedUser.protein = parseFloat(expectedUser.protein).toFixed(2);
+      expectedUser.sugar = parseFloat(expectedUser.sugar).toFixed(2);
+      expectedUser.fiber = parseFloat(expectedUser.fiber).toFixed(2);
+      expectedUser.fat = parseFloat(expectedUser.fat).toFixed(2);
+
       return supertest(app)
         .get('/api/user/demouser')
         .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
-        .expect(200, expectedUser)
-    })
-  })
-})
+        .expect(200, expectedUser);
+    });
+  });
+});
